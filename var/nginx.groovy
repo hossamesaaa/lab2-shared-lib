@@ -10,7 +10,7 @@ def call(){
         
         stage('install nginx') {
             steps {
-               sh 'sudo yum install nginx'
+               sh 'sudo yum install nginx -y'
             }
         }
         stage('start nginx') {
