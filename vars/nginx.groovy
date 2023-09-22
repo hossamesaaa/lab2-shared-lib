@@ -6,7 +6,7 @@ def call(){
    pipeline {
     
     agent {
-      label: slave1
+      label  'slave1'
     }
 
     stages {
