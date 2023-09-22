@@ -7,27 +7,28 @@ def call() {
     agent {
       label  'slave1'
     }
-
-    stages {
-        
-        stage('install nginx') {
+     parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+    }
+  stages {
+        stage('Example') {
             steps {
-               sh 'sudo yum install nginx -y'
+                echo "Hello ${params.PERSON}"
+
+                echo "Biography: ${params.BIOGRAPHY}"
+
+                echo "Toggle: ${params.TOGGLE}"
+
+                echo "Choice: ${params.CHOICE}"
+
+                echo "Password: ${params.PASSWORD}"
             }
         }
-        stage('start nginx') {
-            steps {
-                sh "sudo systemctl enable nginx "
-                 sh "sudo systemctl start nginx "
-            }    
-        }
-       stage('test nginx') {
-            steps {
-                sh "curl localhost "
-            }    
-        }
-       
     }
   
-}
+ }
 }
